@@ -1,4 +1,4 @@
-import Auth from "../components/Auth"
+import AuthSignup from "@/components/AuthSignup"
 import Quote from "../components/Quote"
 
 
@@ -6,7 +6,7 @@ const Signup = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
       <div>
-        <Auth type="signup"/>
+        <AuthSignup/>
       </div>
       <div className="hidden md:block">
         <Quote/>

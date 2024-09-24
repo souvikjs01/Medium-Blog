@@ -5,7 +5,7 @@ import { decode, sign, verify } from "hono/jwt"
 export const userRouter = new Hono<{
     Bindings: {
 		DATABASE_URL: string
-        JWT_SECRET: string
+    JWT_SECRET: string
 	}
 }>();
 
@@ -52,7 +52,10 @@ userRouter.post('/signin', async(c) => {
         }
     
         const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-        return c.json({ token });
+        return c.json({
+          user,
+          token,
+        });
     } catch (error) {
       console.log(error);
       c.status(403);

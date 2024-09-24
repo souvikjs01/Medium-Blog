@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Button } from "./ui/button"
 const Navbar = () => {
+    const navigate = useNavigate();
+    const isAuthenticated = localStorage.getItem('token');
   return (
     <nav className="flex justify-between w-full px-4 md:px-12 py-4 border-b border-black">
         <div>
@@ -23,13 +25,23 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className=" hidden sm:block">
-                <Link to='/signin' className="inline-flex items-center hover:bg-gray-100 rounded-lg border border-transparent px-4 py-2 text-base transition-all duration-200 hover:text-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-300 font-medium text-gray-700">
-                    Sign In
-                </Link>
+                {isAuthenticated ? (
+                    <Link to='/' onClick={() => {
+                        localStorage.removeItem('token')
+                        navigate('/');
+                    } } className="inline-flex items-center hover:bg-gray-100 rounded-lg border border-transparent px-4 py-2 text-base transition-all duration-200 hover:text-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-300 font-medium text-gray-700">
+                        Sign Out
+                    </Link>
+                ) : (
+                    <Link to='/signin' className="inline-flex items-center hover:bg-gray-100 rounded-lg border border-transparent px-4 py-2 text-base transition-all duration-200 hover:text-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-300 font-medium text-gray-700">
+                        Sign In
+                    </Link>
+                )}
+                
             </div>
             <div >
                 <Link to='/signup'>
-                    <Button size='sm'>Get Started</Button>
+                    <Button>Get Started</Button>
                 </Link>
             </div>
         </div>

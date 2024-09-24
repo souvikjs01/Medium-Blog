@@ -14,6 +14,8 @@ import { blogRouter } from './routes/blog'
 
 app.route('/api/v1/user', userRouter);
 app.route('/api/v1/blog', blogRouter);
-
+app.get('/', (c) => {
+  return c.text('hello world');
+})
 
 export default app
