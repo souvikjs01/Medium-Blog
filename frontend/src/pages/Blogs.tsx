@@ -12,18 +12,18 @@ const Blogs = () => {
                 <Skeleton/>
             </div>
         )
-    }
-
+    }    
   return (
     <div>
         <Appbar/>
-        <div className=" max-w-screen-sm mx-auto pt-4">
+        <div className=" max-w-screen-sm mx-auto">
             {blogs.map(blog => (<BlogCard
+                key={blog.id}
                 id={blog.id} 
                 authorName={blog.author.name || "Anonymous"}
                 title={blog.title}
                 content={blog.content}
-                publishedDate={'2nd may 2024'} 
+                created_at={blog.created_at} 
             />))}
         </div>
     </div>

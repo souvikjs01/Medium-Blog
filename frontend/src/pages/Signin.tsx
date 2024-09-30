@@ -10,7 +10,7 @@ const Signin = () => {
         <AuthSignin />
       </div>
       <div className="hidden md:block">
-        <Quote/>
+        <Quote type='signin'/>
       </div>
     </div>
   )

@@ -19,11 +19,15 @@ import { useToast } from "@/hooks/use-toast"
 import { SignInSchema, SignInType } from "@/validation/signinSchema"
 import { useState } from "react"
 import { ImSpinner } from 'react-icons/im'
+import { useSetRecoilState } from 'recoil';
+import { userNameState, userEmailState } from '../atoms/atoms'
 
 const AuthSignin = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const { toast } = useToast()
+    const setName = useSetRecoilState(userNameState)
+    const setEmail = useSetRecoilState(userEmailState)
     const form = useForm<z.infer<typeof SignInSchema>>({
         resolver: zodResolver(SignInSchema),
         defaultValues: {
@@ -36,10 +40,11 @@ const AuthSignin = () => {
         async function sendRequest(){
             try {
                 setLoading(true);
+                console.log("hi therwe");                
                 const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, data);
                 const jwt = response.data.token;
-                console.log(response.data);
-                
+                setName(response.data.user.name);
+                setEmail(response.data.user.email);                
                 setLoading(false);
                 toast({
                     title: "You have successfully signed in",
@@ -48,8 +53,9 @@ const AuthSignin = () => {
                 navigate("/blogs")
             } catch (error) {
                 toast({
-                    title: "Something went wrong",
+                    title: "User Not found",
                 })
+                setLoading(false);
                 console.log(error);                     
             }
         }

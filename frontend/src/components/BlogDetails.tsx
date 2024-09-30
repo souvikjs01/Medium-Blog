@@ -1,8 +1,16 @@
+import { useEffect, useState } from "react";
 import { Blog } from "../hooks"
 import Appbar from "./Appbar"
+import getTime from "@/lib/getTime";
 
 
 const BlogDetails = ({blog}: {blog: Blog}) => {
+    const [timeAgo, setTimeEgo] = useState<string>("");
+    useEffect(() => {
+        const time = getTime(blog.created_at);
+        setTimeEgo(time);
+      }, [])
+    
   return (
     <div >
         <Appbar />
@@ -13,7 +21,7 @@ const BlogDetails = ({blog}: {blog: Blog}) => {
                         {blog.title}
                     </div>
                     <div className=" text-slate-500 pt-2">
-                        Post on 2nd Dec 2023
+                        Post on {timeAgo}
                     </div>
                     <div className=" pt-2">
                         {blog.content}

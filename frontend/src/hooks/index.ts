@@ -6,6 +6,7 @@ export interface Blog {
     content: string;
     title: string;
     id: string;
+    created_at: string;
     author: {
         name: string;
     }
@@ -21,7 +22,12 @@ export const useBlog = ({id}: {id: string}) =>{
         }
        })
        .then((res) => {
-        setBlog(res.data.response);
+        const data = res.data.response;      
+        const formattedBlog: Blog = {
+            ...data,
+            created_at: new Date(data.created_at).toLocaleString(), // Convert date to local string
+        };
+        setBlog(formattedBlog)
         setLoading(false);
        })
     }, []);

@@ -9,7 +9,7 @@ const Signup = () => {
         <AuthSignup/>
       </div>
       <div className="hidden md:block">
-        <Quote/>
+        <Quote type='signup'/>
       </div>
     </div>
   )
