@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
 export default function HomeBody() {
+  const isSignedIn = localStorage.getItem('token');
   return (
     <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-[#f1f5f9] h-auto">
       <h1 className=" px-4 sm:px-8 mt-12 sm:mt-24 font-bold text-4xl sm:text-6xl text-[#0f172a] text-center">
@@ -9,7 +10,7 @@ export default function HomeBody() {
       </h1>
       <p className=" text-gray-700 text-base mt-4 sm:mt-6 font-normal leading-7 text-center sm:text-xl lg:mx-auto lg:max-w-3xl xl:text-2xl xl:leading-9">Create beautiful, independent online publication by writing faster and better than you ever have before</p>
       <div className=" flex justify-center items-center mt-8">
-        <Link to='/signin'>
+        <Link to={isSignedIn ? '/blogs' : '/signin'}>
           <Button size='lg' className=" animate-pulse">Post Your First Blog</Button>
         </Link>
       </div>
